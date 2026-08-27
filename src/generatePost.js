@@ -1,12 +1,17 @@
 import "dotenv/config";
+import { pathToFileURL } from "node:url";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getRecentTopics, addTopic } from "./historyStore.js";
 
 function buildPrompt(pastTopics) {
   const avoidList = pastTopics.slice(-15).join(", ") || "none yet";
-  return `You are helping a full-stack software engineer write a LinkedIn post.
+  return `You are helping a full-stack software engineer who also builds AI automations and LLM-powered bots (using Python and Node.js) write a LinkedIn post.
 
-Pick ONE fresh, specific topic relevant to full-stack development (e.g. a framework feature, a debugging lesson, a performance trick, a career insight, an architecture decision, a tool comparison). Avoid these recently used topics: ${avoidList}.
+Pick ONE fresh, specific topic that showcases this dual expertise. Alternate/mix between these areas across posts:
+- Full-stack development (framework features, debugging lessons, performance tricks, architecture decisions, tool comparisons)
+- AI automation and LLM engineering (building bots/agents, LLM API integration, prompt engineering, RAG, workflow automation, Python/Node AI tooling, real automation projects and lessons learned)
+
+The goal is to build a personal brand as a "Full-Stack + AI Automation Engineer" so recruiters and peers see this range. Avoid these recently used topics: ${avoidList}.
 
 Write a LinkedIn post about it with:
 - A strong 1-line hook as the first line
@@ -42,7 +47,7 @@ export async function generatePost() {
   return { topic, post };
 }
 
-if (import.meta.url === `file://${process.argv[1].replace(/\\/g, "/")}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const { topic, post } = await generatePost();
   console.log("Topic:", topic);
   console.log("\n--- Post ---\n");

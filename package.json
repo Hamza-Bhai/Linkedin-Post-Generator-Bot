@@ -1,0 +1,15 @@
+{
+  "name": "linkedin-post-agent",
+  "version": "1.0.0",
+  "description": "Daily LinkedIn post generator for a full-stack software engineer",
+  "type": "module",
+  "main": "src/generatePost.js",
+  "scripts": {
+    "generate": "node src/generatePost.js",
+    "daily": "node src/daily.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "dotenv": "^16.4.5"
+  }
+}

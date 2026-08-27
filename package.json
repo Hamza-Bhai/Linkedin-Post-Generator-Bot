@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Daily LinkedIn post generator for a full-stack software engineer",
   "type": "module",
-  "main": "src/generatePost.js",
   "scripts": {
     "generate": "node src/generatePost.js",
     "daily": "node src/daily.js"
